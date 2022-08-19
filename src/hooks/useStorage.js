@@ -1,6 +1,6 @@
 import { async } from "@firebase/util";
 import { useState, useEffect } from "react";
-import { projectStorage } from "../firebase/config";
+import { projectStorage, projectFirestore, timestamp } from "../firebase/config";
 
 const useStorage = (file) =>{
     // create 3 states for the file
@@ -15,6 +15,7 @@ const useStorage = (file) =>{
     useEffect( ()=>{
         // references where file should be saved
         const storageRef = projectStorage.ref(file.name);
+        const collectionRef = projectFirestore.collection('images');
 
         //take a file and put it in the ref location. detect when progress or complete states change
         storageRef.put(file).on('stage_changed', (snap) => {
@@ -29,6 +30,10 @@ const useStorage = (file) =>{
             // wait till image is uploaded and save to setUrl
         }, async () => {
             const url = await storageRef.getDownloadURL();
+            // get timestamp
+            const createdAt = timestamp();
+            // add collection reference using url and timestamp
+            collectionRef.add({ url, createdAt });
             setUrl(url)
         })
 
