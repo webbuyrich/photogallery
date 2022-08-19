@@ -18,4 +18,15 @@ TRAINING VIDEO LINK: https://www.youtube.com/watch?v=vUe91uOx7R0
 12. Create new file named conifg.js inside firebase folder
 13. Paste config code from step 9 into config.js
 14. Set up rest of config file as showed in video
+15. In Firebase, create a new database under Build -> Firestore Database
+16. Choose start in test mode option and create database
+17. In Firebase, create new storage service under Build -> storage
+18. In the Rules tab, change 
+    allow read, write: if false;
+
+    to 
+
+    allow read, write;//: if false; or allow read, write;
+
+19. 
 
