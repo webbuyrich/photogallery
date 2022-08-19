@@ -18,6 +18,7 @@ const UploadForm = () =>{
         // if a file is selected, setFile and update the state
         if(selected && types.includes(selected.type)){
             setFile(selected)
+            setError(null)
         } else {
             setFile(null);
             setError('Please select an image file (png, jpeg, or jpg)')
