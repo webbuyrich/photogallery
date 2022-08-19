@@ -19,7 +19,9 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// Initialize firebase storage and firestore services
 const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
 
+// export services so they can be used
 export { projectStorage, projectFirestore}
