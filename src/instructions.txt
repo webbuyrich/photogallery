@@ -1,0 +1,21 @@
+INSTRUCTIONS FOR CREATING APP USING REACT AND FIREBASE 
+
+TUTORIAL By Traversy Media
+GITHUB STARTER FILES LINK: https://github.com/iamshaunjp/firegram/tree/starter-files
+TRAINING VIDEO LINK: https://www.youtube.com/watch?v=vUe91uOx7R0
+
+1. Install ReacJS using create-react-app 
+2. Replace files in src folder to match starter-files
+3. Create comps folder and add Title.js
+4. Sign up at firebase.google.com for free account
+5. Create new project - photogallery
+6. Unclick analytics
+7. Click on </> icon to register new web app
+8. Name app and register new app
+9. Copy all code you see on the next page and contine to console
+10. In the terminal, run npm install firebase
+11. Create new folder named firebase inside src folder
+12. Create new file named conifg.js inside firebase folder
+13. Paste config code from step 9 into config.js
+14. Set up rest of config file as showed in video
+
