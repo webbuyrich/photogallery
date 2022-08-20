@@ -7,14 +7,14 @@ const UploadForm = () =>{
     const[error, setError] = useState(null);
 
 
-    const types = ['image/png', 'image/jpeg', 'image/jpg']
+    const types = ['image/png', 'image/jpg', 'image/jpeg']
 
     // access file user selected
     const changeHandler = (e) =>{
        
         // target first file only
         let selected = e.target.files[0];
-        console.log("selected information",selected)
+        console.log(selected);
         
         // if a file is selected, setFile and update the state
         if(selected && types.includes(selected.type)){
@@ -35,7 +35,7 @@ const UploadForm = () =>{
             <div className="output">
                 { error && <div className="error">{error}</div>}
                 { file && <div>{file.name}</div>}
-                { file && <ProgressBar file={file} setFile={setFile}/>}
+                { file && <ProgressBar file={file} setFile={setFile} />}
             </div>
         </form>
     )

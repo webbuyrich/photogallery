@@ -1,46 +1,30 @@
-import { async } from "@firebase/util";
-import { useState, useEffect } from "react";
-import { projectStorage, projectFirestore, timestamp } from "../firebase/config";
+import { useState, useEffect } from 'react';
+import { projectStorage, projectFirestore, timestamp } from '../firebase/config';
 
-const useStorage = (file) =>{
-    // create 3 states for the file
+const useStorage = (file) => {
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
+  const [url, setUrl] = useState(null);
 
-    // file progress of upload
-    const [progress, setProgress] = useState(0)
-    // file error if any errors
-    const [error, setError] = useState(null)
-    // url returned from storage after upload
-    const [url, setUrl] = useState(null)
+  useEffect(() => {
+    // references
+    const storageRef = projectStorage.ref(file.name);
+    const collectionRef = projectFirestore.collection('images');
+    
+    storageRef.put(file).on('state_changed', (snap) => {
+      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+      setProgress(percentage);
+    }, (err) => {
+      setError(err);
+    }, async () => {
+      const url = await storageRef.getDownloadURL();
+      const createdAt = timestamp();
+      await collectionRef.add({ url, createdAt });
+      setUrl(url);
+    });
+  }, [file]);
 
-    useEffect( ()=>{
-        // references where file should be saved
-        const storageRef = projectStorage.ref(file.name);
-        const collectionRef = projectFirestore.collection('images');
-
-        //take a file and put it in the ref location. detect when progress or complete states change
-        storageRef.put(file).on('stage_changed', (snap) => {
-            // get progress and save to setProgress
-            let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-            setProgress(percentage);
-
-            // detect error and save to setError
-        }, (err) => {
-            setError(err)
-
-            // wait till image is uploaded and save to setUrl
-        }, async () => {
-            const url = await storageRef.getDownloadURL();
-            // get timestamp
-            const createdAt = timestamp();
-            // add collection reference using url and timestamp
-            collectionRef.add({ url, createdAt });
-            setUrl(url)
-        })
-
-    },[file])
-
-    // values that will be available to access
-    return { progress, url, error }
+  return { progress, url, error };
 }
 
 export default useStorage;
