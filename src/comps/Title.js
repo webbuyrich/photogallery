@@ -5,7 +5,7 @@ const Title = () => {
     <div className="title">
       <h1>PhotoGallery</h1>
       <h2>Your Pictures</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Click the plus icon to add an image!</p>
     </div>
   )
 }
